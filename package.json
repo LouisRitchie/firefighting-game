@@ -1,6 +1,7 @@
 {
   "author": "Your Name",
-  "name": "package-name",
+  "name": "firefighting-game-unlicensed",
+  "license": "MIT",
   "description": "Package description",
   "version": "0.0.1",
   "homepage": "",
