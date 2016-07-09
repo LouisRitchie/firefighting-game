@@ -2,7 +2,7 @@ state = require 'state'
 
 game = new Rogue.Game
   fps: true
-  width: 800
+  width: 1000
   height: 600
 game.input = new Rogue.Keyboard game.canvas
 game.mouse = new Rogue.Mouse game

@@ -1,5 +1,4 @@
-X_SPEED = 6
-Y_SPEED = 4
+ViewControl = require "controls/view_control"
 PLAYER_JUMP_ACC = -40 #This should be a negative value
 
 state =
@@ -12,18 +11,10 @@ state =
       viewWidth: 100000
       viewHeight: 600
 
-    bg1 = new Rogue.Entity
+    game.bg1 = new Rogue.Entity
       name: "bg1"
       image: assets.bg1
-      speed: 0.1
-      repeatX: true
-      require: ["layer"]
-    bg2 = new Rogue.Entity
-      name: "bg2"
-      image: assets.bg2
-      speed: 0.1
-      repeatX: true
-      require: ["layer"]
+      require: ["move"]
     game.player = new Rogue.Entity
       name: "player"
       image: assets.firePlane
@@ -35,41 +26,18 @@ state =
       y: 500
       size: [1000,1]
 
-    @viewport.add [bg2, bg1, game.player, tiles]
+    @viewport.add [game.bg1, game.player, tiles]
     @viewport.updates.push ->
       @follow @player
       @forceInside @player, false
 
+    game.player.moveTo(300, 300)
+    game.bg1.moveTo(300, 300)
     @viewport.tiles.place new Rogue.Entity({image: assets.red, x: x, y: 0, require: ["sprite","collide","AABB"]}) for x in [0...@viewport.tiles.size[0]]
 
   update: (game,dt) ->
-    player = game.player
-    input = game.input
-    xSpeed = X_SPEED
-    ySpeed = Y_SPEED
-
-    if input.pressed("right")
-      xSpeed = X_SPEED * 1.4
-    if input.pressed("left")
-      xSpeed = X_SPEED * 0.6
-    if input.pressed("up")
-    	ySpeed = -Y_SPEED * 1.4
-    if input.pressed("down")
-    	ySpeed = Y_SPEED * 2
-
-    player.move(xSpeed, ySpeed)
-
-    _.map game.e, (e) -> console.log e
-    debugger
-    ###if input.pressed("up")
-      if player.canJump
-        #game.assets.core.jump.play()
-        player.canJump = false
-        player.acc[1] = PLAYER_JUMP_ACC
-    ###
-    if input.pressed("down")
-      player.move(0,2)
-
+    vc = ViewControl.viewControl(game, 5, 5, 1)
+    vc.respondToInput()
     @viewport.update(dt)
 
   draw: (game,dt) ->
