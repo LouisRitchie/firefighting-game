@@ -49,7 +49,7 @@ state =
       player.move(-2,0)
     if input.pressed("up")
       if player.canJump
-        game.assets.core.jump.play()
+        #game.assets.core.jump.play()
         player.canJump = false
         player.acc[1] = -25
     if input.pressed("down")
