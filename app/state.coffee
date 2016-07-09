@@ -15,6 +15,10 @@ state =
       name: "bg1"
       image: assets.bg1
       require: ["move"]
+    game.bg2 = new Rougue.Entity
+      name: "bg2"
+      image: assets.bg2
+      require: ["move"]
     game.player = new Rogue.Entity
       name: "player"
       image: assets.firePlane
@@ -33,6 +37,7 @@ state =
 
     game.player.moveTo(300, 300)
     game.bg1.moveTo(300, 300)
+    game.bg2.moveTo(400, 300)
     @viewport.tiles.place new Rogue.Entity({image: assets.red, x: x, y: 0, require: ["sprite","collide","AABB"]}) for x in [0...@viewport.tiles.size[0]]
 
   update: (game,dt) ->
