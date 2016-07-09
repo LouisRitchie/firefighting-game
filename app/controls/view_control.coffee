@@ -3,6 +3,7 @@ viewControl =
     @game = game
     @player = @game.player
     @bg1 = @game.bg1
+    @bg2 = @game.bg2
     @xSpeed = xBase
     @ySpeed = yBase
     @bgSpeed = bgBase
@@ -22,6 +23,7 @@ viewControl =
       ySpeed = @ySpeed
 
     @bg1.move(-@bgSpeed, 0)
+    @bg2.move(-@bgSpeed, 0)
     @player.move(xSpeed, ySpeed)
 
 module.exports = viewControl

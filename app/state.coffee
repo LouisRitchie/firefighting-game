@@ -15,7 +15,7 @@ state =
       name: "bg1"
       image: assets.bg1
       require: ["move"]
-    game.bg2 = new Rougue.Entity
+    game.bg2 = new Rogue.Entity
       name: "bg2"
       image: assets.bg2
       require: ["move"]
@@ -30,7 +30,7 @@ state =
       y: 500
       size: [1000,1]
 
-    @viewport.add [game.bg1, game.player, tiles]
+    @viewport.add [game.bg1, game.bg2,  game.player, tiles]
     @viewport.updates.push ->
       @follow @player
       @forceInside @player, false
