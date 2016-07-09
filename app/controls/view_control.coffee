@@ -1,3 +1,6 @@
+PLAYER_MOMENTUM = 0
+GRAVITY = 0.5
+	
 viewControl =
   viewControl: (game, xBase, yBase, bgBase) ->
     @game = game
@@ -9,19 +12,23 @@ viewControl =
     return @
 
   respondToInput: ->
-    xSpeed = 0
-    ySpeed = 0
+    xSpeed = 3
+    ySpeed = 3	
+    
+    @player.acc[1] += GRAVITY if @player.acc[1] < 1.5
+    #console.log @player.acc[1]
 
     if @game.input.pressed("right")
-      xSpeed = @xSpeed
+      xSpeed = @xSpeed * 1.4
     if @game.input.pressed("left")
-      xSpeed = -@xSpeed
+      xSpeed = @xSpeed * 0.6
     if @game.input.pressed("up")
+      @player.acc[1] += -0.75
       ySpeed = -@ySpeed
     if @game.input.pressed("down")
       ySpeed = @ySpeed
 
     @bg1.move(-@bgSpeed, 0)
-    @player.move(xSpeed, ySpeed)
+    @player.move(xSpeed,ySpeed)
 
 module.exports = viewControl
