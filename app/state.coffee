@@ -1,4 +1,5 @@
-PLAYER_SPEED = 6
+X_SPEED = 6
+Y_SPEED = 4
 PLAYER_JUMP_ACC = -40 #This should be a negative value
 
 state =
@@ -14,20 +15,19 @@ state =
     bg1 = new Rogue.Entity
       name: "bg1"
       image: assets.bg1
-      speed: 0.5
+      speed: 0.1
       repeatX: true
       require: ["layer"]
     bg2 = new Rogue.Entity
       name: "bg2"
       image: assets.bg2
-      speed: 0.9
+      speed: 0.1
       repeatX: true
       require: ["layer"]
     game.player = new Rogue.Entity
       name: "player"
       image: assets.firePlane
       require: ["move","collide","AABB","physics"]
-    game.player.behavior.add "gravity"
     game.player.ev.on "hit", (col) -> if col.dir is "bottom" then @canJump = true
 
     tiles = new Rogue.TileMap
@@ -45,21 +45,22 @@ state =
   update: (game,dt) ->
     player = game.player
     input = game.input
-    xSpeed = PLAYER_SPEED
-    ySpeed = -PLAYER_SPEED
+    xSpeed = X_SPEED
+    ySpeed = Y_SPEED
 
     if input.pressed("right")
-      xSpeed = PLAYER_SPEED * 1.4
+      xSpeed = X_SPEED * 1.4
     if input.pressed("left")
-      xSpeed = PLAYER_SPEED * 0.6
+      xSpeed = X_SPEED * 0.6
     if input.pressed("up")
-    	ySpeed = -PLAYER_SPEED * 1.4
+    	ySpeed = -Y_SPEED * 1.4
     if input.pressed("down")
-    	ySpeed = PLAYER_SPEED
+    	ySpeed = Y_SPEED * 2
 
-    console.log xSpeed, ySpeed
     player.move(xSpeed, ySpeed)
 
+    _.map game.e, (e) -> console.log e
+    debugger
     ###if input.pressed("up")
       if player.canJump
         #game.assets.core.jump.play()
