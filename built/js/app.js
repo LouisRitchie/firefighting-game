@@ -248,12 +248,6 @@ state = {
       image: assets.blue,
       require: ["move", "collide", "AABB", "physics"]
     });
-    game.player.behavior.add("gravity");
-    game.player.ev.on("hit", function(col) {
-      if (col.dir === "bottom") {
-        return this.canJump = true;
-      }
-    });
     tiles = new Rogue.TileMap({
       name: "tiles",
       y: 300,
@@ -286,11 +280,18 @@ state = {
       player.move(-PLAYER_SPEED, 0);
     }
     if (input.pressed("up")) {
-      if (player.canJump) {
-        player.canJump = false;
-        player.acc[1] = PLAYER_JUMP_ACC;
-      }
+      player.move(0, -PLAYER_SPEED);
     }
+    if (input.pressed("down")) {
+      player.move(0, PLAYER_SPEED);
+    }
+    /*if input.pressed("up")
+      if player.canJump
+        #game.assets.core.jump.play()
+        player.canJump = false
+        player.acc[1] = PLAYER_JUMP_ACC
+    */
+
     if (input.pressed("down")) {
       player.move(0, 2);
     }

@@ -28,8 +28,8 @@ state =
       name: "player"
       image: assets.blue
       require: ["move","collide","AABB","physics"]
-    game.player.behavior.add "gravity"
-    game.player.ev.on "hit", (col) -> if col.dir is "bottom" then @canJump = true 
+    #game.player.behavior.add "gravity"
+    #game.player.ev.on "hit", (col) -> if col.dir is "bottom" then @canJump = true 
 
     tiles = new Rogue.TileMap
       name: "tiles"
@@ -51,10 +51,18 @@ state =
     if input.pressed("left")
       player.move(-PLAYER_SPEED,0)
     if input.pressed("up")
+    	player.move(0, -PLAYER_SPEED)
+    if input.pressed("down")
+    	player.move(0, PLAYER_SPEED)
+      
+      
+      
+    ###if input.pressed("up")
       if player.canJump
         #game.assets.core.jump.play()
         player.canJump = false
         player.acc[1] = PLAYER_JUMP_ACC
+    ###
     if input.pressed("down")
       player.move(0,2)
 
