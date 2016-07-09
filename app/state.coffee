@@ -40,6 +40,12 @@ state =
     vc.respondToInput()
     @viewport.update(dt)
 
+    input = game.input
+    menuState = require 'menu_state'
+    if input.pressed("escape")
+      console.log("Escape pressed")
+      game.switchState menuState
+      
   draw: (game,dt) ->
     game.clear()
     @viewport.draw()
