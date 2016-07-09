@@ -13,7 +13,7 @@ game.assets = assets = new Rogue.AssetManager
       {name:"bg1",src:"img/b1.png"}
       {name:"bg2",src:"img/b2.png"}
       {name:"red",src:"img/1.png"}
-      {name:"blue",src:"img/2.png"}
+      {name:"firePlane",src:"img/firePlane.png"}
       {name:"jump",src:"sound/jump.ogg",alt:"sound/jump.mp3"}
     ]
   preload: false
