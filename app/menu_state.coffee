@@ -1,3 +1,7 @@
+WATER_GAIN_RATE = 1
+WATER_LOSS_RATE = 10
+waterMeter = 0
+
 
 menuState =
   setup: (game) ->
@@ -19,11 +23,16 @@ menuState =
       y: 500
       size: [1000,1]
       
-    menuBlock = new Rogue.Entity
+    game.menuBlock = new Rogue.Entity
       name: "menuBlock"
       image: assets.menuBlock
+      x: @viewport.viewWidth/2
+      y: @viewport.viewHeight/3+0
+      require: ["move"]
+      
+    
 
-    @viewport.add [game.bg1, tiles]  
+    @viewport.add [game.bg1, game.menuBlock, tiles]  
 
     game.player.moveTo(300, 300)
     game.bg1.moveTo(300, 300)
@@ -37,6 +46,11 @@ menuState =
     if input.pressed("enter")
       game.switchState state
     
+    if input.pressed("right")
+      waterMeter += WATER_GAIN_RATE
+    
+    if input.pressed("left")
+      waterMeter -= WATER_LOSS_RATE
     
     #Last thing in update
     @viewport.update(dt)
