@@ -213,7 +213,11 @@ Rogue.ready(function() {
 });
 
 require.register("state.coffee", function(exports, require, module) {
-var state;
+var PLAYER_JUMP_ACC, PLAYER_SPEED, state;
+
+PLAYER_SPEED = 6;
+
+PLAYER_JUMP_ACC = -40;
 
 state = {
   setup: function(game) {
@@ -276,15 +280,15 @@ state = {
     player = game.player;
     input = game.input;
     if (input.pressed("right")) {
-      player.move(2, 0);
+      player.move(PLAYER_SPEED, 0);
     }
     if (input.pressed("left")) {
-      player.move(-2, 0);
+      player.move(-PLAYER_SPEED, 0);
     }
     if (input.pressed("up")) {
       if (player.canJump) {
         player.canJump = false;
-        player.acc[1] = -25;
+        player.acc[1] = PLAYER_JUMP_ACC;
       }
     }
     if (input.pressed("down")) {

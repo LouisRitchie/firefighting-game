@@ -1,3 +1,6 @@
+PLAYER_SPEED = 6
+PLAYER_JUMP_ACC = -40 #This should be a negative value	
+
 state =
   setup: (game) ->
     console.log "setup run"
@@ -6,7 +9,7 @@ state =
     @viewport = new Rogue.ViewPort
       parent: game
       viewWidth: 1000
-      viewHeight: 400
+      viewHeight: 400	
 
     bg1 = new Rogue.Entity
       name: "bg1"
@@ -44,14 +47,14 @@ state =
     input = game.input
 
     if input.pressed("right")
-      player.move(2,0)
+      player.move(PLAYER_SPEED,0)
     if input.pressed("left")
-      player.move(-2,0)
+      player.move(-PLAYER_SPEED,0)
     if input.pressed("up")
       if player.canJump
         #game.assets.core.jump.play()
         player.canJump = false
-        player.acc[1] = -25
+        player.acc[1] = PLAYER_JUMP_ACC
     if input.pressed("down")
       player.move(0,2)
 
