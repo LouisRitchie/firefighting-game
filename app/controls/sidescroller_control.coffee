@@ -3,8 +3,12 @@ class SidescrollerControl
   X_SPEED = 5
   Y_SPEED = 5
   BG_SPEED = 1
+  GRAVITY = 1
+  LIFT = 1.5
 
   constructor: (game, viewport) ->
+    # anything that has '@' in front will be stored in game.oldState automatically.
+    # access game.oldState here to access those '@' variables from last time.
     @game = game
     @viewport = viewport
     @menuState = require '../states/menu_state'
@@ -12,9 +16,10 @@ class SidescrollerControl
 
   nextMove: ->
     @checkForStateChange()
+    @addAcceleration()
     @movePlayer()
     @moveBackground()
-    @spawnWater()
+    @moveWater()
 
   checkForStateChange: ->
     if @game.input.pressed("escape")
@@ -22,30 +27,28 @@ class SidescrollerControl
     if @game.input.pressed("enter")
       @game.switchState @birdseyeState
 
+  addAcceleration: ->
+
   movePlayer: ->
     xSpeed = X_SPEED
-    ySpeed = Y_SPEED
+    ySpeed = 0
+    @game.player.acc[1] += GRAVITY if @game.player.acc[1] <=1.0
 
     if @game.input.pressed("right")
-      xSpeed = X_SPEED * 1.4
+      xSpeed = X_SPEED
     if @game.input.pressed("left")
-      xSpeed = X_SPEED * 0.6
+      xSpeed = X_SPEED
     if @game.input.pressed("up")
-      ySpeed = -Y_SPEED * 0.5
+      @game.player.acc[1] -= LIFT
     if @game.input.pressed("down")
-      ySpeed = Y_SPEED * 2
+      ySpeed = Y_SPEED
 
     @game.player.move(xSpeed, ySpeed)
 
   moveBackground: ->
 
-  spawnWater: ->
-    for i in [1...20]
-      water = @game.waterFactory.deploy()
-      x = 100 * ( i % 3 ) * ( i % 7 )
-      y = 150 * ( i % 10 )
-      @viewport.add [water]
-      water.moveTo(x, y)
+  moveWater: ->
+
 
 
 module.exports = SidescrollerControl

@@ -46,6 +46,13 @@ state =
         require: ["move"]
       initial: 100
 
+    for i in [1...20]
+      water = game.waterFactory.deploy()
+      x = 100 * ( i % 3 ) * ( i % 7 )
+      y = 150 * ( i % 10 )
+      @viewport.add [water]
+      water.moveTo(x, y)
+
     # add these objects to the view
     @viewport.add [game.player, tiles]
     @viewport.updates.push ->
