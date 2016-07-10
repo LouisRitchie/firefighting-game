@@ -44,11 +44,101 @@ state =
         image: assets.blue
         require: ["move"]
 
-    game.treeFactory = new Rogue.Factory
+    game.tree1Factory = new Rogue.Factory
       entity: Rogue.Entity
       options:
-        name: "tree"
-        image: assets.tree
+        name: "tree1"
+        image: assets.tree1
+        require: ["move"]
+    game.tree2Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "tree2"
+        image: assets.tree2
+        require: ["move"]
+    game.tree3Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "tree3"
+        image: assets.tree3
+        require: ["move"]
+    game.tree4Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "tree4"
+        image: assets.tree4
+        require: ["move"]
+    game.tree5Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "tree5"
+        image: assets.tree5
+        require: ["move"]
+    game.tree6Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "tree6"
+        image: assets.tree6
+        require: ["move"]
+    game.tree7Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "tree7"
+        image: assets.tree7
+        require: ["move"]
+    game.tree8Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "tree8"
+        image: assets.tree8
+        require: ["move"]
+    game.tree9Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "tree9"
+        image: assets.tree9
+        require: ["move"]
+    game.tree10Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "tree10"
+        image: assets.tree10
+        require: ["move"]
+    game.tree11Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "tree11"
+        image: assets.tree11
+        require: ["move"]
+    game.tree12Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "tree12"
+        image: assets.tree12
+        require: ["move"]
+    game.tree13Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "tree13"
+        image: assets.tree13
+        require: ["move"]
+    game.tree14Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "tree14"
+        image: assets.tree14
+        require: ["move"]
+    game.tree15Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "tree15"
+        image: assets.tree15
+        require: ["move"]
+    game.tree16Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "tree16"
+        image: assets.tree16
         require: ["move"]
 
     game.rockFactory = new Rogue.Factory
