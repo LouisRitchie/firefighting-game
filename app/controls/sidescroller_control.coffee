@@ -4,8 +4,9 @@ class SidescrollerControl
   Y_SPEED = 5
   BG_SPEED = 1
 
-  constructor: (game) ->
+  constructor: (game, viewport) ->
     @game = game
+    @viewport = viewport
     @menuState = require '../states/menu_state'
     @birdseyeState = require '../states/birdseye_state'
 
@@ -39,7 +40,12 @@ class SidescrollerControl
   moveBackground: ->
 
   spawnWater: ->
-    @game.waterFactory.deploy()
+    for i in [1...20]
+      water = @game.waterFactory.deploy()
+      x = 100 * ( i % 3 ) * ( i % 7 )
+      y = 150 * ( i % 10 )
+      @viewport.add [water]
+      water.moveTo(x, y)
 
 
 module.exports = SidescrollerControl

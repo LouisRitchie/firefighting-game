@@ -47,7 +47,7 @@ state =
       initial: 100
 
     # add these objects to the view
-    @viewport.add [game.bg1, game.bg2,  game.player, tiles]
+    @viewport.add [game.player, tiles]
     @viewport.updates.push ->
       @follow @player
       @forceInside @player, false
@@ -60,7 +60,7 @@ state =
     @viewport.tiles.place new Rogue.Entity({image: assets.red, x: x, y: 0, require: ["sprite","collide","AABB"]}) for x in [0...@viewport.tiles.size[0]]
 
   update: (game,dt) ->
-    sc = new SidescrollerControl(game)
+    sc = new SidescrollerControl(game, @viewport)
     sc.nextMove()
     @viewport.update(dt)
 

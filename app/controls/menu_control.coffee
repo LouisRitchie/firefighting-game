@@ -15,6 +15,6 @@ class MenuControl
       @game.switchState @sidescrollerState
 
   moveBackground: ->
-    return true;
+    return true
 
 module.exports = MenuControl
