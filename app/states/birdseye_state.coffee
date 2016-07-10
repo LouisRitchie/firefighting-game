@@ -16,24 +16,10 @@ state =
       height: 600
       viewHeight: 100000
 
-    game.bg1 = new Rogue.Entity
-      name: "bg1"
-      image: assets.bg1
-      require: ["move"]
-    game.bg2 = new Rogue.Entity
-      name: "bg2"
-      image: assets.bg2
-      require: ["move"]
     game.player = new Rogue.Entity
       name: "player"
       image: assets['firePlane-top']
       require: ["move","collide","AABB","physics"]
-
-    tiles = new Rogue.TileMap
-      name: "tiles"
-      x: 0
-      y: -32
-      size: [1000,1]
 
     game.waterFactory = new Rogue.Factory
       entity: Rogue.Entity
@@ -56,16 +42,12 @@ state =
         image: assets.rock
         require: ["move"]
 
-    @viewport.add [game.bg1, game.bg2,  game.player, tiles]
+    @viewport.add [game.player]
     @viewport.updates.push ->
       @follow @player
       @forceInside @player, false
 
-    game.player.moveTo(300, 300)
-    game.bg1.moveTo(300, 300)
-    game.bg2.moveTo(400, 300)
-    @viewport.tiles.place new Rogue.Entity({image: assets.red, x: x, y: 0, require: ["sprite","collide","AABB"]}) for x in [0...@viewport.tiles.size[0]]
-
+    game.player.moveTo(300, 99999)
   update: (game,dt) ->
     bc = new BirdseyeControl(game, @viewport)
     bc.nextMove()
