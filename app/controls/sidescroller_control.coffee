@@ -17,8 +17,7 @@ class SidescrollerControl
     @checkForStateChange()
     @addAcceleration()
     @movePlayer()
-    @moveBackground()
-    @moveWater()
+    @spawnBackground()
 
   checkForStateChange: ->
     if @game.input.pressed("escape")
@@ -44,22 +43,24 @@ class SidescrollerControl
 
     @game.player.move(xSpeed, ySpeed)
 
-  moveBackground: ->
+  spawnBackground: ->
     # each background entity traverses the view in 30 steps over 0.5s, 2s, or 4s
     # the constant on the end gets the right number of pixels for each of the 30 steps.
-    waterPosition = (@game.loop.currentTick % 500) * 1.6 - 400
-    treePosition = (@game.loop.currentTick % 2000) * 0.4 - 400
-    rockPosition = (@game.loop.currentTick % 4000) * 0.2 - 400
+    spawnWater = if @game.loop.currentTick % 3 == 0 then true else false
+    spawnTree = if @game.loop.currentTick % 15 == 0 then true else false
+    spawnRock = if @game.loop.currentTick % 17 == 0 then true else false
 
-    waterVerticalAcc = 0.1 * ((@game.loop.currentTick % 300) - 150)
-
-    for i in [1...2]
+    if spawnWater
       water = @game.waterFactory.deploy()
-      water.moveTo(@game.player.rect().x + waterPosition, 400)
+      water.moveTo(@game.player.rect().x + 400, 400)
       @viewport.add [water]
-
-  moveWater: ->
-
-
+    if spawnTree
+      tree = @game.treeFactory.deploy()
+      tree.moveTo(@game.player.rect().x + 400, 300)
+      @viewport.add [tree]
+    if spawnRock
+      rock = @game.rockFactory.deploy()
+      rock.moveTo(@game.player.rect().x + 400, 200)
+      @viewport.add [rock]
 
 module.exports = SidescrollerControl

@@ -42,7 +42,20 @@ state =
         name: "water"
         image: assets.blue
         require: ["move"]
-      initial: 100
+
+    game.treeFactory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "tree"
+        image: assets.tree
+        require: ["move"]
+
+    game.rockFactory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "rock"
+        image: assets.rock
+        require: ["move"]
 
     # add these objects to the view
     @viewport.add [game.player, tiles]
