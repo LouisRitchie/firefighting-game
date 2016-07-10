@@ -1,7 +1,7 @@
-class SidescrollerControl
+class BirdseyeControl
 
-  X_SPEED = 5
-  Y_SPEED = 5
+  X_SPEED = 2
+  Y_SPEED = 7
   BG_SPEED = 1
 
   constructor: (game) ->
@@ -10,7 +10,7 @@ class SidescrollerControl
     @bg1 = game.bg1
     @bg2 = game.bg2
     @menuState = require '../states/menu_state'
-    @birdseyeState = require '../states/birdseye_state'
+    @sidescrollerState = require '../states/sidescroller_state'
 
   nextMove: ->
     @checkForStateChange()
@@ -19,13 +19,13 @@ class SidescrollerControl
     ySpeed = Y_SPEED
 
     if @game.input.pressed("right")
-      xSpeed = X_SPEED * 1.4
+      xSpeed = X_SPEED
     if @game.input.pressed("left")
-      xSpeed = X_SPEED * 0.6
+      xSpeed = -X_SPEED
     if @game.input.pressed("up")
-      ySpeed = -Y_SPEED * 0.5
+      ySpeed = -Y_SPEED * 1.3
     if @game.input.pressed("down")
-      ySpeed = Y_SPEED * 2
+      ySpeed = -Y_SPEED *  0.6
 
     @player.move(xSpeed, ySpeed)
 
@@ -33,8 +33,9 @@ class SidescrollerControl
     if @game.input.pressed("escape")
       @game.switchState @menuState
     if @game.input.pressed("enter")
-      @game.switchState @birdseyeState
+      console.log "changing back to sidescroller..."
+      @game.switchState @sidescrollerState
 
   moveBackground: ->
 
-module.exports = SidescrollerControl
+module.exports = BirdseyeControl

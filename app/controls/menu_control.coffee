@@ -1,4 +1,4 @@
-class menuControl
+class MenuControl
 
   BACKGROUND_SPEED = 1
 
@@ -17,4 +17,4 @@ class menuControl
   moveBackground: ->
     return true;
 
-module.exports = menuControl
+module.exports = MenuControl

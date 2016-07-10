@@ -14,7 +14,9 @@ game.assets = assets = new Rogue.AssetManager
       {name:"bg1",src:"img/b1.png"}
       {name:"bg2",src:"img/b2.png"}
       {name:"red",src:"img/1.png"}
-      {name:"firePlane",src:"img/firePlane.png"}
+      {name:"firePlane-side1",src:"img/firePlane-side1.png"}
+      {name:"firePlane-side2",src:"img/firePlane-side2.png"}
+      {name:"firePlane-top",src:"img/firePlane-top.png"}
       {name:"jump",src:"sound/jump.ogg",alt:"sound/jump.mp3"}
       {name:"menuBlock",src:"shitty_img/shitty_block.png"}
       {name:"littleFire",src:"img/littleFire.gif"}
