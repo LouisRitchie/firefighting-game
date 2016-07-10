@@ -1,39 +1,37 @@
 class sidescrollerControl
-  constructor: (game, xBase, yBase, bgBase) ->
+
+  X_SPEED = 5
+  Y_SPEED = 5
+  BG_SPEED = 1
+
+  constructor: (game) ->
     @game = game
-    @player = @game.player
-    @bg1 = @game.bg1
-    @bg2 = @game.bg2
-    @xSpeed = xBase
-    @ySpeed = yBase
-    @bgSpeed = bgBase
-    return @
+    @player = game.player
+    @bg1 = game.bg1
+    @bg2 = game.bg2
+    @menuState = require '../states/menu_state'
 
-  nextState: (nextState) ->
-    console.log "[sidescroller_control] [nextState] logging nextState: "
-    console.log nextState
-    @nextState = nextState
-
-  respondToInput: ->
-    xSpeed = 0
-    ySpeed = 0
+  nextMove: ->
+    @checkForStateChange()
+    @moveBackground()
+    xSpeed = X_SPEED
+    ySpeed = Y_SPEED
 
     if @game.input.pressed("right")
-      xSpeed = @xSpeed
+      xSpeed = X_SPEED * 1.4
     if @game.input.pressed("left")
-      xSpeed = -@xSpeed
+      xSpeed = X_SPEED * 0.6
     if @game.input.pressed("up")
-      ySpeed = -@ySpeed
+      ySpeed = -Y_SPEED * 0.5
     if @game.input.pressed("down")
-      ySpeed = @ySpeed
+      ySpeed = Y_SPEED * 2
 
-    @bg1.move(-@bgSpeed, 0)
-    @bg2.move(-@bgSpeed, 0)
     @player.move(xSpeed, ySpeed)
 
+  checkForStateChange: ->
     if @game.input.pressed("escape")
-      console.log "[sidescroller control] logging nextState: "
-      console.log @nextState
-      @game.switchState @nextState
+      @game.switchState @menuState
+
+  moveBackground: ->
 
 module.exports = sidescrollerControl

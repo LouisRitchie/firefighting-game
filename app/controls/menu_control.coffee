@@ -1,17 +1,20 @@
 class menuControl
+
+  BACKGROUND_SPEED = 1
+
   constructor: (game) ->
     @game = game
-    return @
+    @sidescrollerState = require '../states/sidescroller_state'
 
-  nextState: (nextState) ->
-    console.log "[menu_control] [nextState] nextState"
-    console.log nextState
-    @nextState = nextState
+  nextMove: ->
+    @checkForStateChange()
+    @moveBackground()
 
-  respondToInput: ->
+  checkForStateChange: ->
     if @game.input.pressed("enter")
-      console.log "[menu_control] logging nextState: "
-      console.log @nextState
-      @game.switchState @nextState
+      @game.switchState @sidescrollerState
+
+  moveBackground: ->
+    return true;
 
 module.exports = menuControl

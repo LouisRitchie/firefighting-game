@@ -1,5 +1,4 @@
 MenuControl = require '../controls/menu_control'
-SidescrollerState = require './sidescroller_state'
 
 menuState =
   setup: (game) ->
@@ -20,15 +19,9 @@ menuState =
 
     @viewport.add [game.menuBlock]
 
-    console.log "[menu_state] logging SidescrollerState that is required: "
-    console.log SidescrollerState
-    @mc = new MenuControl(game)
-    @mc.nextState(SidescrollerState)
-    console.log "[menu_state] logging menu control object: "
-    console.log @mc
-
   update: (game,dt) ->
-    @mc.respondToInput()
+    mc = new MenuControl(game)
+    mc.nextMove()
     @viewport.update(dt)
 
   draw: (game,dt) ->
