@@ -25,7 +25,7 @@ state =
       require: ["move"]
     game.player = new Rogue.Entity
       name: "player"
-      image: assets['firePlane-side1']
+      image: assets['firePlane-side2']
       require: ["move","collide","AABB","physics"]
     game.player.ev.on "hit", (col) -> if col.dir is "bottom" then @canJump = true
 

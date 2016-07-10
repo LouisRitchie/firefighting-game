@@ -1,7 +1,7 @@
 class BirdseyeControl
 
-  X_SPEED = 2
-  Y_SPEED = 7
+  X_SPEED = 5
+  Y_SPEED = -7
   BG_SPEED = 1
 
   constructor: (game) ->
@@ -15,7 +15,7 @@ class BirdseyeControl
   nextMove: ->
     @checkForStateChange()
     @moveBackground()
-    xSpeed = X_SPEED
+    xSpeed = 0
     ySpeed = Y_SPEED
 
     if @game.input.pressed("right")
@@ -23,9 +23,9 @@ class BirdseyeControl
     if @game.input.pressed("left")
       xSpeed = -X_SPEED
     if @game.input.pressed("up")
-      ySpeed = -Y_SPEED * 1.3
+      ySpeed = Y_SPEED * 1.3
     if @game.input.pressed("down")
-      ySpeed = -Y_SPEED *  0.6
+      ySpeed = Y_SPEED *  0.6
 
     @player.move(xSpeed, ySpeed)
 
