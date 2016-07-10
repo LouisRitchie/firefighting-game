@@ -3,7 +3,7 @@ class BirdseyeControl
   X_SPEED = 5
   Y_SPEED = -7
   BG_SPEED = 1
-  TANK = 0
+  DOWN_FLOW = 0.5
 
   constructor: (game, viewport) ->
     @game = game
@@ -46,7 +46,7 @@ class BirdseyeControl
 
     if spawnWater and @game.input.pressed("space")
       if game.player.tank >= 0
-        game.player.tank -= 0.25
+        game.player.tank -= DOWN_FLOW
         water = @game.waterFactory.deploy()
         water.moveTo(@game.player.rect().x + 64, @game.player.rect().y + 148)
         @viewport.add [water]

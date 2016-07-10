@@ -128,8 +128,5 @@ class SidescrollerControl
   getFullTank: ->
       if TANK == 100
         return TANK
-  
-  getTank: ->
-     return TANK
 
 module.exports = SidescrollerControl

@@ -155,10 +155,9 @@ state =
     sc.nextMove()
 
     TANK = sc.getTank()
-    console.log TANK
     game.player.tank = TANK    
 
-    if sc.getFullTank() == 100
+    if game.player.tank == 100
       #console.log "full"
       game.doneButton.x = game.player.x+250
 
