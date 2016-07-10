@@ -35,6 +35,27 @@ state =
       y: 500
       size: [1,1000]
 
+    game.waterFactory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "water"
+        image: assets.blue
+        require: ["move"]
+
+    game.treeFactory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "tree"
+        image: assets.tree
+        require: ["move"]
+
+    game.rockFactory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "rock"
+        image: assets.rock
+        require: ["move"]
+
     @viewport.add [game.bg1, game.bg2,  game.player, tiles]
     @viewport.updates.push ->
       @follow @player
@@ -46,7 +67,7 @@ state =
     @viewport.tiles.place new Rogue.Entity({image: assets.red, x: x, y: 0, require: ["sprite","collide","AABB"]}) for x in [0...@viewport.tiles.size[0]]
 
   update: (game,dt) ->
-    bc = new BirdseyeControl(game)
+    bc = new BirdseyeControl(game, @viewport)
     bc.nextMove()
     @viewport.update(dt)
 
