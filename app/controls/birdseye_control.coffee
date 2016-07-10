@@ -43,18 +43,15 @@ class BirdseyeControl
 
     if spawnWater
       water = @game.waterFactory.deploy()
-      water.moveTo(200, @game.player.rect().y + 400)
+      water.moveTo(@game.player.rect().x + 64, @game.player.rect().y + 148)
       @viewport.add [water]
     if spawnTree
-      tree = @game.treeFactory.deploy()
+      tree = @game.tree1Factory.deploy()
       tree.moveTo(300, @game.player.rect().y + 400)
       @viewport.add [tree]
     if spawnRock
       rock = @game.rockFactory.deploy()
       rock.moveTo(400, @game.player.rect().y + 400)
       @viewport.add [rock]
-
-
-  moveBackground: ->
 
 module.exports = BirdseyeControl

@@ -28,7 +28,6 @@ state =
       name: "player"
       image: assets['firePlane-top']
       require: ["move","collide","AABB","physics"]
-    game.player.ev.on "hit", (col) -> if col.dir is "bottom" then @canJump = true
 
     tiles = new Rogue.TileMap
       name: "tiles"
@@ -42,11 +41,11 @@ state =
         image: assets.blue
         require: ["move"]
 
-    game.treeFactory = new Rogue.Factory
+    game.tree1Factory = new Rogue.Factory
       entity: Rogue.Entity
       options:
         name: "tree"
-        image: assets.tree
+        image: assets.tree1
         require: ["move"]
 
     game.rockFactory = new Rogue.Factory

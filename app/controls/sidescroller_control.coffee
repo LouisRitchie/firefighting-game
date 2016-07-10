@@ -45,23 +45,22 @@ class SidescrollerControl
   spawnBackground: ->
     # each background entity traverses the view in 30 steps over 0.5s, 2s, or 4s
     # the constant on the end gets the right number of pixels for each of the 30 steps.
-    spawnWater = if @game.loop.currentTick % 3 == 0 then true else false
-    spawnTree = if @game.loop.currentTick % 2 == 0 then true else false
-    spawnRock = if @game.loop.currentTick % 17 == 0 then true else false
 
-    if spawnWater
-      water = @game.waterFactory.deploy()
-      water.moveTo(@game.player.rect().x + 400, 400)
+    if @game.loop.currentTick % 2 == 0
+      water = @spawnWater()
+      water.moveTo(@game.player.rect().x + 500, 400 + Math.random() * 20)
       @viewport.add [water]
-    if spawnTree
-      @spawnRandomTree()
-    if spawnRock
-      rock = @game.rockFactory.deploy()
-      rock.moveTo(@game.player.rect().x + 400, 200)
+    if @game.loop.currentTick % 3 == 0
+      tree = @spawnTree()
+      tree.moveTo(@game.player.rect().x + 500, Math.random() * 300)
+      @viewport.add [tree]
+    if @game.loop.currentTick % 17 == 0
+      rock = @spawnRock()
+      rock.moveTo(@game.player.rect().x + 500, Math.random() * 200)
       @viewport.add [rock]
 
-  spawnRandomTree: ->
-    tree = switch Math.floor Math.random() * 16
+  spawnTree: ->
+    return tree = switch Math.floor Math.random() * 16
       when 0 then @game.tree1Factory.deploy()
       when 1 then @game.tree2Factory.deploy()
       when 2 then @game.tree3Factory.deploy()
@@ -80,7 +79,22 @@ class SidescrollerControl
       when 15 then @game.tree16Factory.deploy()
       else @game.tree1Factory.deploy()
 
-    tree.moveTo(@game.player.rect().x + 500, (Math.random() * 300))
-    @viewport.add(tree)
+  spawnWater: ->
+    return water = @game.waterFactory.deploy()
+
+  spawnRock: ->
+    return rock = @game.rockFactory.deploy()
+
+  initializeBackground: ->
+    for each in [1...30]
+      water = @spawnWater()
+      water.moveTo(Math.random() * 800, 400 + Math.random() * 20)
+      tree = @spawnTree()
+      tree.moveTo(Math.random() * 800, Math.random() * 300)
+      @viewport.add [water, tree]
+    for each in [1...4]
+      rock = @spawnRock()
+      rock.moveTo(Math.random() * 800, Math.random() * 200)
+      @viewport.add [rock]
 
 module.exports = SidescrollerControl
