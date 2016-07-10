@@ -4,14 +4,15 @@ class BirdseyeControl
   Y_SPEED = -7
   BG_SPEED = 1
 
-  constructor: (game) ->
+  constructor: (game, viewport) ->
     @game = game
+    @viewport = viewport
     @menuState = require '../states/menu_state'
     @sidescrollerState = require '../states/sidescroller_state'
 
   nextMove: ->
     @checkForStateChange()
-    @moveBackground()
+    @spawnBackground()
     xSpeed = 0
     ySpeed = 0
 
@@ -33,6 +34,24 @@ class BirdseyeControl
       console.log "changing back to sidescroller..."
       @game.switchState @sidescrollerState
 
-  moveBackground: ->
+  spawnBackground: ->
+    # each background entity traverses the view in 30 steps over 0.5s, 2s, or 4s
+    # the constant on the end gets the right number of pixels for each of the 30 steps.
+    spawnWater = if @game.loop.currentTick % 3 == 0 then true else false
+    spawnTree = if @game.loop.currentTick % 15 == 0 then true else false
+    spawnRock = if @game.loop.currentTick % 17 == 0 then true else false
+
+    if spawnWater
+      water = @game.waterFactory.deploy()
+      water.moveTo(@game.player.rect().x + 64, @game.player.rect().y + 148)
+      @viewport.add [water]
+    if spawnTree
+      tree = @game.tree1Factory.deploy()
+      tree.moveTo(300, @game.player.rect().y + 400)
+      @viewport.add [tree]
+    if spawnRock
+      rock = @game.rockFactory.deploy()
+      rock.moveTo(400, @game.player.rect().y + 400)
+      @viewport.add [rock]
 
 module.exports = BirdseyeControl

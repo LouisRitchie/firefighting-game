@@ -28,13 +28,33 @@ state =
       name: "player"
       image: assets['firePlane-top']
       require: ["move","collide","AABB","physics"]
-    game.player.ev.on "hit", (col) -> if col.dir is "bottom" then @canJump = true
 
     tiles = new Rogue.TileMap
       name: "tiles"
       x: 0
       y: -32
       size: [1000,1]
+
+    game.waterFactory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "water"
+        image: assets.blue
+        require: ["move"]
+
+    game.tree1Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "tree"
+        image: assets.tree1
+        require: ["move"]
+
+    game.rockFactory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "rock"
+        image: assets.rock
+        require: ["move"]
 
     @viewport.add [game.bg1, game.bg2,  game.player, tiles]
     @viewport.updates.push ->
@@ -47,7 +67,7 @@ state =
     @viewport.tiles.place new Rogue.Entity({image: assets.red, x: x, y: 0, require: ["sprite","collide","AABB"]}) for x in [0...@viewport.tiles.size[0]]
 
   update: (game,dt) ->
-    bc = new BirdseyeControl(game)
+    bc = new BirdseyeControl(game, @viewport)
     bc.nextMove()
     @viewport.update(dt)
 
