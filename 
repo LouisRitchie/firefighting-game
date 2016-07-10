@@ -1,0 +1,102 @@
+[1mdiff --git a/app/controls/menu_control.coffee b/app/controls/menu_control.coffee[m
+[1mindex 84c112e..2c50a29 100644[m
+[1m--- a/app/controls/menu_control.coffee[m
+[1m+++ b/app/controls/menu_control.coffee[m
+[36m@@ -13,6 +13,8 @@[m [mclass MenuControl[m
+   checkForStateChange: ->[m
+     if @game.input.pressed("enter")[m
+       @game.switchState @sidescrollerState[m
+[32m+[m[32m    if @game.input.pressed("backspace")[m
+[32m+[m[32m      @game.switchState @birdseye_state[m
+ [m
+   moveBackground: ->[m
+     return true[m
+[1mdiff --git a/app/controls/sidescroller_control.coffee b/app/controls/sidescroller_control.coffee[m
+[1mindex e6e4050..9a61110 100644[m
+[1m--- a/app/controls/sidescroller_control.coffee[m
+[1m+++ b/app/controls/sidescroller_control.coffee[m
+[36m@@ -8,6 +8,7 @@[m [mclass SidescrollerControl[m
+   TANK = 0[m
+   TANK_COEF = 0.0025[m
+   FILL_RATE = 1[m
+[32m+[m[32m  DEAD_ZONE = 425[m
+ [m
+   constructor: (game, viewport) ->[m
+     @game = game[m
+[36m@@ -25,7 +26,7 @@[m [mclass SidescrollerControl[m
+   checkForStateChange: ->[m
+     if @game.input.pressed("escape")[m
+       @game.switchState @menuState[m
+[31m-    if @game.input.pressed("enter")[m
+[32m+[m[32m    if @game.input.pressed("backspace")[m
+       @game.switchState @birdseyeState[m
+ [m
+   addAcceleration: ->[m
+[36m@@ -45,15 +46,16 @@[m [mclass SidescrollerControl[m
+ [m
+     #console.log "TANK: " + TANK + ". MAX LIFT: " + (LIFT - (TANK_COEF*TANK))[m
+     #console.log @game.player.y[m
+[31m-    if @game.player.y > 425[m
+[32m+[m
+[32m+[m[32m    if @game.player.y > DEAD_ZONE or @game.player.y < 0[m
+       console.log "game over. back to menu"[m
+       TANK = 0[m
+       @game.switchState @menuState[m
+ [m
+     if @game.input.pressed("right")[m
+[31m-      xSpeed = X_SPEED[m
+[32m+[m[32m      xSpeed = X_SPEED * 1.2[m
+     if @game.input.pressed("left")[m
+[31m-      xSpeed = X_SPEED[m
+[32m+[m[32m      xSpeed = X_SPEED * 0.8[m
+     if @game.input.pressed("up")[m
+       @game.player.acc[1] += -LIFT + (TANK_COEF*TANK)[m
+     if @game.input.pressed("down")[m
+[36m@@ -81,4 +83,8 @@[m [mclass SidescrollerControl[m
+       rock.moveTo(@game.player.rect().x + 400, 200)[m
+       @viewport.add [rock][m
+ [m
+[32m+[m[32m  getFullTank: ->[m
+[32m+[m[32m      if TANK == 100[m
+[32m+[m[32m        return TANK[m
+[32m+[m
+ module.exports = SidescrollerControl[m
+[1mdiff --git a/app/states/sidescroller_state.coffee b/app/states/sidescroller_state.coffee[m
+[1mindex 7d032a3..e195520 100644[m
+[1m--- a/app/states/sidescroller_state.coffee[m
+[1m+++ b/app/states/sidescroller_state.coffee[m
+[36m@@ -30,6 +30,14 @@[m [mstate =[m
+       image: assets['firePlane-side2'][m
+       require: ["move","collide","AABB","physics"][m
+     game.player.ev.on "hit", (col) -> if col.dir is "bottom" then @canJump = true[m
+[32m+[m[41m    [m
+[32m+[m[32m    game.doneButton = new Rogue.Entity[m
+[32m+[m[32m      name: "doneButton"[m
+[32m+[m[32m      image: assets.menuBlock[m
+[32m+[m[32m      x: -200 #@viewport.viewWidth/2[m
+[32m+[m[32m      y: 50 #@viewport.viewHeight/3+0[m
+[32m+[m[32m      require: ["move"][m
+[32m+[m[32m      opacity: 255[m
+ [m
+     tiles = new Rogue.TileMap[m
+       name: "tiles"[m
+[36m@@ -59,6 +67,7 @@[m [mstate =[m
+ [m
+     # add these objects to the view[m
+     @viewport.add [game.player, tiles][m
+[32m+[m[32m    @viewport.add [game.doneButton][m
+     @viewport.updates.push ->[m
+       @follow @player[m
+       @forceInside @player, false[m
+[36m@@ -73,6 +82,11 @@[m [mstate =[m
+   update: (game,dt) ->[m
+     sc = new SidescrollerControl(game, @viewport)[m
+     sc.nextMove()[m
+[32m+[m
+[32m+[m[32m    if sc.getFullTank() == 100[m
+[32m+[m[32m      console.log "full"[m
+[32m+[m[32m      game.doneButton.x = game.player.x+250[m
+[32m+[m[41m   [m
+     @viewport.update(dt)[m
+ [m
+   draw: (game,dt) ->[m

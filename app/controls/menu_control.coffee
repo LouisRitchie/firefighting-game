@@ -5,6 +5,7 @@ class MenuControl
   constructor: (game) ->
     @game = game
     @sidescrollerState = require '../states/sidescroller_state'
+    @birdseye_state = require '../states/birdseye_state'
 
   nextMove: ->
     @checkForStateChange()
@@ -13,6 +14,8 @@ class MenuControl
   checkForStateChange: ->
     if @game.input.pressed("enter")
       @game.switchState @sidescrollerState
+    if @game.input.pressed("backspace")
+      @game.switchState @birdseye_state
 
   moveBackground: ->
     return true

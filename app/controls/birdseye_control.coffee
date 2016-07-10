@@ -14,7 +14,7 @@ class BirdseyeControl
     @checkForStateChange()
     @spawnBackground()
     xSpeed = 0
-    ySpeed = Y_SPEED
+    ySpeed = 0
 
     if @game.input.pressed("right")
       xSpeed = X_SPEED
@@ -23,7 +23,7 @@ class BirdseyeControl
     if @game.input.pressed("up")
       ySpeed = Y_SPEED * 1.3
     if @game.input.pressed("down")
-      ySpeed = Y_SPEED *  0.6
+      ySpeed = -Y_SPEED * 0.6
 
     @game.player.move(xSpeed, ySpeed)
 
@@ -43,18 +43,15 @@ class BirdseyeControl
 
     if spawnWater
       water = @game.waterFactory.deploy()
-      water.moveTo(200, @game.player.rect().y + 400)
+      water.moveTo(@game.player.rect().x + 64, @game.player.rect().y + 148)
       @viewport.add [water]
     if spawnTree
-      tree = @game.treeFactory.deploy()
+      tree = @game.tree1Factory.deploy()
       tree.moveTo(300, @game.player.rect().y + 400)
       @viewport.add [tree]
     if spawnRock
       rock = @game.rockFactory.deploy()
       rock.moveTo(400, @game.player.rect().y + 400)
       @viewport.add [rock]
-
-
-  moveBackground: ->
 
 module.exports = BirdseyeControl
