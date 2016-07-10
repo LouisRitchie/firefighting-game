@@ -32,8 +32,9 @@ state =
 
     tiles = new Rogue.TileMap
       name: "tiles"
-      y: 500
-      size: [1,1000]
+      x: 0
+      y: -32
+      size: [1000,1]
 
     @viewport.add [game.bg1, game.bg2,  game.player, tiles]
     @viewport.updates.push ->

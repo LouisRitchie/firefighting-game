@@ -34,10 +34,9 @@ state =
     game.doneButton = new Rogue.Entity
       name: "doneButton"
       image: assets.menuBlock
-      x: -200 #@viewport.viewWidth/2
-      y: 50 #@viewport.viewHeight/3+0
+      x: -200
+      y: 50
       require: ["move"]
-      opacity: 255
 
     tiles = new Rogue.TileMap
       name: "tiles"

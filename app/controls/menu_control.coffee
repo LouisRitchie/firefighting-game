@@ -5,6 +5,7 @@ class MenuControl
   constructor: (game) ->
     @game = game
     @sidescrollerState = require '../states/sidescroller_state'
+    @birdseye_state = require '../states/birdseye_state'
 
   nextMove: ->
     @checkForStateChange()
