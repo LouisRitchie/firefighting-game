@@ -15,7 +15,7 @@ class BirdseyeControl
     @checkForStateChange()
     @spawnBackground()
     xSpeed = 0
-    ySpeed = 0
+    ySpeed = Y_SPEED
 
     console.log game.player.tank
 
@@ -54,11 +54,11 @@ class BirdseyeControl
         console.log "no more water"
     if spawnTree
       tree = @game.tree1Factory.deploy()
-      tree.moveTo(300, @game.player.rect().y + 400)
+      tree.moveTo(Math.random() * 800, @game.player.rect().y - 500)
       @viewport.add [tree]
     if spawnRock
       rock = @game.rockFactory.deploy()
-      rock.moveTo(400, @game.player.rect().y + 400)
+      rock.moveTo(Math.random() * 800, @game.player.rect().y - 500)
       @viewport.add [rock]
 
 module.exports = BirdseyeControl
