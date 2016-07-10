@@ -3,6 +3,7 @@ class BirdseyeControl
   X_SPEED = 5
   Y_SPEED = -7
   BG_SPEED = 1
+  TANK = 0
 
   constructor: (game, viewport) ->
     @game = game
@@ -15,6 +16,8 @@ class BirdseyeControl
     @spawnBackground()
     xSpeed = 0
     ySpeed = 0
+
+    console.log game.player.tank
 
     if @game.input.pressed("right")
       xSpeed = X_SPEED
@@ -41,10 +44,14 @@ class BirdseyeControl
     spawnTree = if @game.loop.currentTick % 15 == 0 then true else false
     spawnRock = if @game.loop.currentTick % 17 == 0 then true else false
 
-    if spawnWater
-      water = @game.waterFactory.deploy()
-      water.moveTo(@game.player.rect().x + 64, @game.player.rect().y + 148)
-      @viewport.add [water]
+    if spawnWater and @game.input.pressed("space")
+      if game.player.tank >= 0
+        game.player.tank -= 0.25
+        water = @game.waterFactory.deploy()
+        water.moveTo(@game.player.rect().x + 64, @game.player.rect().y + 148)
+        @viewport.add [water]
+      else 
+        console.log "no more water"
     if spawnTree
       tree = @game.tree1Factory.deploy()
       tree.moveTo(300, @game.player.rect().y + 400)

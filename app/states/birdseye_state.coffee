@@ -28,6 +28,7 @@ state =
       name: "player"
       image: assets['firePlane-top']
       require: ["move","collide","AABB","physics"]
+      tank: game.oldState.viewport.player.tank
 
     tiles = new Rogue.TileMap
       name: "tiles"
@@ -67,6 +68,7 @@ state =
     @viewport.tiles.place new Rogue.Entity({image: assets.red, x: x, y: 0, require: ["sprite","collide","AABB"]}) for x in [0...@viewport.tiles.size[0]]
 
   update: (game,dt) ->
+    #console.log game.oldState.viewport.player.tank
     bc = new BirdseyeControl(game, @viewport)
     bc.nextMove()
     @viewport.update(dt)

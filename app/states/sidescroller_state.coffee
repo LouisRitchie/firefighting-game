@@ -4,6 +4,7 @@ PLAYER_JUMP_ACC = -40 #This should be a negative value
 X_SPEED = 5
 Y_SPEED = 5
 BG_SPEED = 1
+TANK = 0
 
 state =
   setup: (game) ->
@@ -20,6 +21,7 @@ state =
       name: "player"
       image: assets['firePlane-side2']
       require: ["move","collide","AABB","physics"]
+      tank: 0
     
     game.doneButton = new Rogue.Entity
       name: "doneButton"
@@ -146,15 +148,23 @@ state =
       @forceInside @player, false
 
     # initial positions
-    game.player.moveTo(300, 300)
+    game.player.moveTo(300, 200)
 
   update: (game,dt) ->
     sc = new SidescrollerControl(game, @viewport)
     sc.nextMove()
 
+    TANK = sc.getTank()
+    console.log TANK
+    game.player.tank = TANK    
+
     if sc.getFullTank() == 100
-      console.log "full"
+      #console.log "full"
       game.doneButton.x = game.player.x+250
+
+    getTank: ->
+        console.log "return tank"
+        return TANK
    
     @viewport.update(dt)
 

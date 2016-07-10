@@ -7,8 +7,9 @@ class SidescrollerControl
   LIFT = 1.5
   TANK = 0
   TANK_COEF = 0.0025
-  FILL_RATE = 1
+  FILL_RATE = .5
   DEAD_ZONE = 425
+  LEVEL_TIME = 0
 
   constructor: (game, viewport) ->
     @game = game
@@ -21,6 +22,8 @@ class SidescrollerControl
     @addAcceleration()
     @movePlayer()
     @spawnBackground()
+    LEVEL_TIME++
+    #console.log LEVEL_TIME
 
   checkForStateChange: ->
     if @game.input.pressed("escape")
@@ -44,7 +47,17 @@ class SidescrollerControl
     if @game.player.y > DEAD_ZONE or @game.player.y < 0
       console.log "game over. back to menu"
       TANK = 0
+      LEVEL_TIME = 0
       @game.switchState @menuState
+    if LEVEL_TIME == 400
+      console.log "WARNING: TIME ALMOST UP"
+    if LEVEL_TIME == 600
+      console.log "TIME UP"
+      @game.switchState @birdseyeState
+
+    if @game.input.pressed("space") and TANK > 20
+      console.log "Switching to BirdsEye"
+      @game.switchState @birdseyeState
 
     if @game.input.pressed("right")
       xSpeed = X_SPEED * 1.2
@@ -115,5 +128,8 @@ class SidescrollerControl
   getFullTank: ->
       if TANK == 100
         return TANK
+  
+  getTank: ->
+     return TANK
 
 module.exports = SidescrollerControl
