@@ -1,4 +1,5 @@
-state = require 'state'
+SidescrollerState = require 'states/sidescroller_state'
+MenuState = require 'states/menu_state'
 
 game = new Rogue.Game
   fps: true
@@ -20,7 +21,7 @@ game.assets = assets = new Rogue.AssetManager
     ]
   preload: false
 assets.on "load","core", (asset,percent) -> console.log "Assets loading: #{percent}"
-assets.on "complete","core", -> console.log "Assets loaded"; game.start state
+assets.on "complete","core", -> console.log "Assets loaded"; game.start MenuState
 assets.download("core")
 
 module.exports = game

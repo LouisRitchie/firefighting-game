@@ -1,5 +1,10 @@
-ViewControl = require "controls/view_control"
+SidescrollerControl = require "../controls/sidescroller_control"
+MenuState = require "states/menu_state"
+
 PLAYER_JUMP_ACC = -40 #This should be a negative value
+X_SPEED = 5
+Y_SPEED = 5
+BG_SPEED = 1
 
 state =
   setup: (game) ->
@@ -40,17 +45,15 @@ state =
     game.bg2.moveTo(400, 300)
     @viewport.tiles.place new Rogue.Entity({image: assets.red, x: x, y: 0, require: ["sprite","collide","AABB"]}) for x in [0...@viewport.tiles.size[0]]
 
+    @sc = new SidescrollerControl(game, X_SPEED, Y_SPEED, BG_SPEED)
+    @sc.nextState(MenuState)
+    console.log "[sidescroller_state] logging sidescroller control object: "
+    console.log @sc
+
   update: (game,dt) ->
-    vc = ViewControl.viewControl(game, 5, 5, 1)
-    vc.respondToInput()
+    @sc.respondToInput()
     @viewport.update(dt)
 
-    input = game.input
-    menuState = require 'menu_state'
-    if input.pressed("escape")
-      console.log("Escape pressed")
-      game.switchState menuState
-      
   draw: (game,dt) ->
     game.clear()
     @viewport.draw()

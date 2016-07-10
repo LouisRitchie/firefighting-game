@@ -1,5 +1,5 @@
-viewControl =
-  viewControl: (game, xBase, yBase, bgBase) ->
+class sidescrollerControl
+  constructor: (game, xBase, yBase, bgBase) ->
     @game = game
     @player = @game.player
     @bg1 = @game.bg1
@@ -8,6 +8,11 @@ viewControl =
     @ySpeed = yBase
     @bgSpeed = bgBase
     return @
+
+  nextState: (nextState) ->
+    console.log "[sidescroller_control] [nextState] logging nextState: "
+    console.log nextState
+    @nextState = nextState
 
   respondToInput: ->
     xSpeed = 0
@@ -26,4 +31,9 @@ viewControl =
     @bg2.move(-@bgSpeed, 0)
     @player.move(xSpeed, ySpeed)
 
-module.exports = viewControl
+    if @game.input.pressed("escape")
+      console.log "[sidescroller control] logging nextState: "
+      console.log @nextState
+      @game.switchState @nextState
+
+module.exports = sidescrollerControl
