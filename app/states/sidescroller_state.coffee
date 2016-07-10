@@ -10,10 +10,12 @@ state =
     console.log "setup run"
     assets = game.assets.core
 
+
     @viewport = new Rogue.ViewPort
       parent: game
+      width: 800
+      height: 600
       viewWidth: 100000
-      viewHeight: 600
 
     game.bg1 = new Rogue.Entity
       name: "bg1"
@@ -22,10 +24,6 @@ state =
     game.bg2 = new Rogue.Entity
       name: "bg2"
       image: assets.bg2
-      require: ["move"]
-    game.water = new Rogue.Entity
-      name: "water"
-      image: assets.blue
       require: ["move"]
     game.player = new Rogue.Entity
       name: "player"
@@ -45,13 +43,6 @@ state =
         image: assets.blue
         require: ["move"]
       initial: 100
-
-    for i in [1...20]
-      water = game.waterFactory.deploy()
-      x = 100 * ( i % 3 ) * ( i % 7 )
-      y = 150 * ( i % 10 )
-      @viewport.add [water]
-      water.moveTo(x, y)
 
     # add these objects to the view
     @viewport.add [game.player, tiles]

@@ -7,8 +7,8 @@ menuState =
 
     @viewport = new Rogue.ViewPort
       parent: game
-      viewWidth: 1000
-      viewHeight: 600
+      width: 800
+      height: 600
 
     game.menuBlock = new Rogue.Entity
       name: "menuBlock"

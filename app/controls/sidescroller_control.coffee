@@ -7,14 +7,13 @@ class SidescrollerControl
   LIFT = 1.5
 
   constructor: (game, viewport) ->
-    # anything that has '@' in front will be stored in game.oldState automatically.
-    # access game.oldState here to access those '@' variables from last time.
     @game = game
     @viewport = viewport
     @menuState = require '../states/menu_state'
     @birdseyeState = require '../states/birdseye_state'
 
   nextMove: ->
+    console.log @game.player.rect()
     @checkForStateChange()
     @addAcceleration()
     @movePlayer()
@@ -46,6 +45,18 @@ class SidescrollerControl
     @game.player.move(xSpeed, ySpeed)
 
   moveBackground: ->
+    # each background entity traverses the view in 30 steps over 0.5s, 2s, or 4s
+    # the constant on the end gets the right number of pixels for each of the 30 steps.
+    waterPosition = (@game.loop.currentTick % 500) * 1.6 - 400
+    treePosition = (@game.loop.currentTick % 2000) * 0.4 - 400
+    rockPosition = (@game.loop.currentTick % 4000) * 0.2 - 400
+
+    waterVerticalAcc = 0.1 * ((@game.loop.currentTick % 300) - 150)
+
+    for i in [1...2]
+      water = @game.waterFactory.deploy()
+      water.moveTo(@game.player.rect().x + waterPosition, 400)
+      @viewport.add [water]
 
   moveWater: ->
 

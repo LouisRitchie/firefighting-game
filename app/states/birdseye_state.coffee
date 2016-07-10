@@ -12,7 +12,8 @@ state =
 
     @viewport = new Rogue.ViewPort
       parent: game
-      viewWidth: 600
+      width: 800
+      height: 600
       viewHeight: 100000
 
     game.bg1 = new Rogue.Entity
