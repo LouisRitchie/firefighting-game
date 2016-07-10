@@ -10,6 +10,7 @@ state =
     console.log "setup run"
     assets = game.assets.core
 
+    console.log game
 
     @viewport = new Rogue.ViewPort
       parent: game

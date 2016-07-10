@@ -13,7 +13,6 @@ class SidescrollerControl
     @birdseyeState = require '../states/birdseye_state'
 
   nextMove: ->
-    console.log @game.player.rect()
     @checkForStateChange()
     @addAcceleration()
     @movePlayer()
