@@ -43,7 +43,7 @@ class SidescrollerControl
       else
         TANK += FILL_RATE
 
-    #console.log TANK + " + " + (TANK_COEF*TANK) + " + " + LIFT*(TANK_COEF*TANK)
+    #console.log "TANK: " + TANK + ". MAX LIFT: " + (LIFT - (TANK_COEF*TANK))
     #console.log @game.player.y
     if @game.player.y > 425
       console.log "game over. back to menu"

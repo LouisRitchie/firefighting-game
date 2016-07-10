@@ -64,7 +64,7 @@ state =
       @forceInside @player, false
 
     # initial positions
-    game.player.moveTo(300, 300)
+    game.player.moveTo(300, 200)
     game.bg1.moveTo(300, 300)
     game.bg2.moveTo(400, 300)
 
