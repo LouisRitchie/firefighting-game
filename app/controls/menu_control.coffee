@@ -13,6 +13,8 @@ class MenuControl
   checkForStateChange: ->
     if @game.input.pressed("enter")
       @game.switchState @sidescrollerState
+    if @game.input.pressed("backspace")
+      @game.switchState @birdseye_state
 
   moveBackground: ->
     return true

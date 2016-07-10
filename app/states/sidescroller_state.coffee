@@ -30,6 +30,14 @@ state =
       image: assets['firePlane-side2']
       require: ["move","collide","AABB","physics"]
     game.player.ev.on "hit", (col) -> if col.dir is "bottom" then @canJump = true
+    
+    game.doneButton = new Rogue.Entity
+      name: "doneButton"
+      image: assets.menuBlock
+      x: -200 #@viewport.viewWidth/2
+      y: 50 #@viewport.viewHeight/3+0
+      require: ["move"]
+      opacity: 255
 
     tiles = new Rogue.TileMap
       name: "tiles"
@@ -59,6 +67,7 @@ state =
 
     # add these objects to the view
     @viewport.add [game.player, tiles]
+    @viewport.add [game.doneButton]
     @viewport.updates.push ->
       @follow @player
       @forceInside @player, false
@@ -73,6 +82,11 @@ state =
   update: (game,dt) ->
     sc = new SidescrollerControl(game, @viewport)
     sc.nextMove()
+
+    if sc.getFullTank() == 100
+      console.log "full"
+      game.doneButton.x = game.player.x+250
+   
     @viewport.update(dt)
 
   draw: (game,dt) ->

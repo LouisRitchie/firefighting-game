@@ -8,6 +8,7 @@ class SidescrollerControl
   TANK = 0
   TANK_COEF = 0.0025
   FILL_RATE = 1
+  DEAD_ZONE = 425
 
   constructor: (game, viewport) ->
     @game = game
@@ -25,7 +26,7 @@ class SidescrollerControl
   checkForStateChange: ->
     if @game.input.pressed("escape")
       @game.switchState @menuState
-    if @game.input.pressed("enter")
+    if @game.input.pressed("backspace")
       @game.switchState @birdseyeState
 
   addAcceleration: ->
@@ -45,15 +46,16 @@ class SidescrollerControl
 
     #console.log "TANK: " + TANK + ". MAX LIFT: " + (LIFT - (TANK_COEF*TANK))
     #console.log @game.player.y
-    if @game.player.y > 425
+
+    if @game.player.y > DEAD_ZONE or @game.player.y < 0
       console.log "game over. back to menu"
       TANK = 0
       @game.switchState @menuState
 
     if @game.input.pressed("right")
-      xSpeed = X_SPEED
+      xSpeed = X_SPEED * 1.2
     if @game.input.pressed("left")
-      xSpeed = X_SPEED
+      xSpeed = X_SPEED * 0.8
     if @game.input.pressed("up")
       @game.player.acc[1] += -LIFT + (TANK_COEF*TANK)
     if @game.input.pressed("down")
@@ -80,5 +82,9 @@ class SidescrollerControl
       rock = @game.rockFactory.deploy()
       rock.moveTo(@game.player.rect().x + 400, 200)
       @viewport.add [rock]
+
+  getFullTank: ->
+      if TANK == 100
+        return TANK
 
 module.exports = SidescrollerControl
