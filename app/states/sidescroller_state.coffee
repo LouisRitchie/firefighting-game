@@ -23,6 +23,10 @@ state =
       name: "bg2"
       image: assets.bg2
       require: ["move"]
+    game.water = new Rogue.Entity
+      name: "water"
+      image: assets.blue
+      require: ["move"]
     game.player = new Rogue.Entity
       name: "player"
       image: assets['firePlane-side2']
@@ -34,14 +38,25 @@ state =
       y: 500
       size: [1000,1]
 
+    game.waterFactory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "water"
+        image: assets.blue
+        require: ["move"]
+      initial: 100
+
+    # add these objects to the view
     @viewport.add [game.bg1, game.bg2,  game.player, tiles]
     @viewport.updates.push ->
       @follow @player
       @forceInside @player, false
 
+    # initial positions
     game.player.moveTo(300, 300)
     game.bg1.moveTo(300, 300)
     game.bg2.moveTo(400, 300)
+
     @viewport.tiles.place new Rogue.Entity({image: assets.red, x: x, y: 0, require: ["sprite","collide","AABB"]}) for x in [0...@viewport.tiles.size[0]]
 
   update: (game,dt) ->

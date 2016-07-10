@@ -6,15 +6,22 @@ class SidescrollerControl
 
   constructor: (game) ->
     @game = game
-    @player = game.player
-    @bg1 = game.bg1
-    @bg2 = game.bg2
     @menuState = require '../states/menu_state'
     @birdseyeState = require '../states/birdseye_state'
 
   nextMove: ->
     @checkForStateChange()
+    @movePlayer()
     @moveBackground()
+    @spawnWater()
+
+  checkForStateChange: ->
+    if @game.input.pressed("escape")
+      @game.switchState @menuState
+    if @game.input.pressed("enter")
+      @game.switchState @birdseyeState
+
+  movePlayer: ->
     xSpeed = X_SPEED
     ySpeed = Y_SPEED
 
@@ -27,14 +34,12 @@ class SidescrollerControl
     if @game.input.pressed("down")
       ySpeed = Y_SPEED * 2
 
-    @player.move(xSpeed, ySpeed)
-
-  checkForStateChange: ->
-    if @game.input.pressed("escape")
-      @game.switchState @menuState
-    if @game.input.pressed("enter")
-      @game.switchState @birdseyeState
+    @game.player.move(xSpeed, ySpeed)
 
   moveBackground: ->
+
+  spawnWater: ->
+    @game.waterFactory.deploy()
+
 
 module.exports = SidescrollerControl

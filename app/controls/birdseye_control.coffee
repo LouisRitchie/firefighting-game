@@ -6,9 +6,6 @@ class BirdseyeControl
 
   constructor: (game) ->
     @game = game
-    @player = game.player
-    @bg1 = game.bg1
-    @bg2 = game.bg2
     @menuState = require '../states/menu_state'
     @sidescrollerState = require '../states/sidescroller_state'
 
@@ -27,7 +24,7 @@ class BirdseyeControl
     if @game.input.pressed("down")
       ySpeed = Y_SPEED *  0.6
 
-    @player.move(xSpeed, ySpeed)
+    @game.player.move(xSpeed, ySpeed)
 
   checkForStateChange: ->
     if @game.input.pressed("escape")
