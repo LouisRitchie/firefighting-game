@@ -5,6 +5,9 @@ class SidescrollerControl
   BG_SPEED = 1
   GRAVITY = 1
   LIFT = 1.5
+  TANK = 0
+  TANK_COEF = 0.0025
+  FILL_RATE = 1
 
   constructor: (game, viewport) ->
     @game = game
@@ -13,7 +16,7 @@ class SidescrollerControl
     @birdseyeState = require '../states/birdseye_state'
 
   nextMove: ->
-    console.log @game.player.rect()
+    #console.log @game.player.rect()
     @checkForStateChange()
     @addAcceleration()
     @movePlayer()
@@ -32,14 +35,29 @@ class SidescrollerControl
     ySpeed = 0
     @game.player.acc[1] += GRAVITY if @game.player.acc[1] <=1.0
 
+    if @game.player.y >= 350 and TANK < 100
+      if @game.input.pressed("left")
+        TANK += FILL_RATE * 0.8
+      else if @game.input.pressed("right")
+        TANK += FILL_RATE * 1.2
+      else
+        TANK += FILL_RATE
+
+    #console.log TANK + " + " + (TANK_COEF*TANK) + " + " + LIFT*(TANK_COEF*TANK)
+    #console.log @game.player.y
+    if @game.player.y > 425
+      console.log "game over. back to menu"
+      TANK = 0
+      @game.switchState @menuState
+
     if @game.input.pressed("right")
       xSpeed = X_SPEED
     if @game.input.pressed("left")
       xSpeed = X_SPEED
     if @game.input.pressed("up")
-      @game.player.acc[1] -= LIFT
+      @game.player.acc[1] += -LIFT + (TANK_COEF*TANK)
     if @game.input.pressed("down")
-      ySpeed = Y_SPEED
+      @game.player.acc[1] += LIFT + (TANK_COEF*TANK)
 
     @game.player.move(xSpeed, ySpeed)
 
