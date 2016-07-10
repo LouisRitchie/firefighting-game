@@ -36,15 +36,19 @@ state =
     @viewport.tiles.place new Rogue.Entity({image: assets.red, x: x, y: 0, require: ["sprite","collide","AABB"]}) for x in [0...@viewport.tiles.size[0]]
 
   update: (game,dt) ->
-    vc = ViewControl.viewControl(game, 5, 5, 1)
-    vc.respondToInput()
     @viewport.update(dt)
+	
+    sideScroll = require 'side_scroll'
+    console.log "going to side"
+    game.switchState sideScroll
 
+    ###
     input = game.input
     menuState = require 'menu_state'
     if input.pressed("escape")
       console.log("Escape pressed")
       game.switchState menuState
+    ###
       
   draw: (game,dt) ->
     game.clear()

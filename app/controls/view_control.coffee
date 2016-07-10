@@ -11,11 +11,13 @@ viewControl =
     @bgSpeed = bgBase
     return @
 
-  respondToInput: ->
+  respondToInput: (game) ->
+    #@game = game
+    #@player = @game.player
     xSpeed = 3
     ySpeed = 3	
     
-    @player.acc[1] += GRAVITY if @player.acc[1] < 1.5
+    @player.acc[1] += GRAVITY if @player.acc[1] <= 1.0
     #console.log @player.acc[1]
 
     if @game.input.pressed("right")
@@ -25,6 +27,7 @@ viewControl =
     if @game.input.pressed("up")
       @player.acc[1] += -0.75
       ySpeed = -@ySpeed
+      console.log @player.acc[1]
     if @game.input.pressed("down")
       ySpeed = @ySpeed
 
