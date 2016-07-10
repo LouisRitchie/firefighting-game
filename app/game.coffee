@@ -3,8 +3,7 @@ BirdseyeState  = require 'states/birdseye_state'
 MenuState = require 'states/menu_state'
 
 game = new Rogue.Game
-  fps: true
-  width: 1000
+  width: 800
   height: 600
 game.input = new Rogue.Keyboard game.canvas
 game.mouse = new Rogue.Mouse game
