@@ -22,7 +22,7 @@ state =
       image: assets['firePlane-side2']
       require: ["move","collide","AABB","physics"]
       tank: 0
-    
+
     game.doneButton = new Rogue.Entity
       name: "doneButton"
       image: assets.menuBlock
@@ -154,8 +154,8 @@ state =
     sc = new SidescrollerControl(game, @viewport)
     sc.nextMove()
 
-    TANK = sc.getTank()
-    game.player.tank = TANK    
+    TANK = sc.getFullTank()
+    game.player.tank = TANK
 
     if game.player.tank == 100
       #console.log "full"
@@ -164,7 +164,7 @@ state =
     getTank: ->
         console.log "return tank"
         return TANK
-   
+
     @viewport.update(dt)
 
   draw: (game,dt) ->
