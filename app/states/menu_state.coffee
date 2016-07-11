@@ -17,6 +17,8 @@ menuState =
       y: @viewport.viewHeight/3+0
       require: ["move"]
 
+    game.menuBlock.moveTo(400, 400)
+
     @viewport.add [game.menuBlock]
 
   update: (game,dt) ->
