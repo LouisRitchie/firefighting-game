@@ -38,7 +38,8 @@ game.assets = assets = new Rogue.AssetManager
       {name:"jump",src:"sound/jump.ogg",alt:"sound/jump.mp3"}
       {name:"menuBlock",src:"shitty_img/shitty_block.png"}
       {name:"littleFire",src:"img/littleFire.gif"}
-      
+      {name:"watermusic",src:"sound/music/planegamethingwater.mp3"}
+      {name:"firemusic",src:"sound/music/planegamethingfire.mp3"}
     ]
   preload: false
 assets.on "load","core", (asset,percent) -> console.log "Assets loading: #{percent}"

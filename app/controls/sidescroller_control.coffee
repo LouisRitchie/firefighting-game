@@ -125,8 +125,4 @@ class SidescrollerControl
       rock.moveTo(Math.random() * 800, Math.random() * 200)
       @viewport.add [rock]
 
-  getFullTank: ->
-      if TANK == 100
-        return TANK
-
 module.exports = SidescrollerControl

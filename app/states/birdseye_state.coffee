@@ -10,6 +10,8 @@ state =
     console.log "birdseye setup run"
     assets = game.assets.core
 
+    game.assets.core.firemusic.play()
+
     @viewport = new Rogue.ViewPort
       parent: game
       width: 800
@@ -20,7 +22,6 @@ state =
       name: "player"
       image: assets['firePlane-top']
       require: ["move","collide","AABB","physics"]
-      tank: game.oldState.viewport.player.tank
 
     game.waterFactory = new Rogue.Factory
       entity: Rogue.Entity
@@ -49,8 +50,8 @@ state =
       @forceInside @player, false
 
     game.player.moveTo(300, 99999)
+
   update: (game,dt) ->
-    #console.log game.oldState.viewport.player.tank
     bc = new BirdseyeControl(game, @viewport)
     bc.nextMove()
     @viewport.update(dt)

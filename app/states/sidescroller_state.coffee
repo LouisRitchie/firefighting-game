@@ -139,6 +139,12 @@ state =
         image: assets.rock
         require: ["move"]
 
+#------------- MUSIC ------------------
+
+    game.assets.core.watermusic.play()
+
+#--------------------------------------
+
     initialBackground = @generateInitialBackground(game)
 
     # add these objects to the view
@@ -154,7 +160,6 @@ state =
     sc = new SidescrollerControl(game, @viewport)
     sc.nextMove()
 
-    TANK = sc.getTank()
     game.player.tank = TANK    
 
     if game.player.tank == 100
