@@ -21,7 +21,6 @@ state =
       name: "player"
       image: assets['firePlane-side2']
       require: ["move","collide","AABB","physics"]
-      tank: 0
 
     game.doneButton = new Rogue.Entity
       name: "doneButton"
@@ -30,12 +29,67 @@ state =
       y: 50
       require: ["move"]
 
-    game.waterFactory = new Rogue.Factory
+    game.water1Factory = new Rogue.Factory
       entity: Rogue.Entity
       options:
-        name: "water"
-        image: assets.blue
+        name: "water1"
+        image: assets.water1
         require: ["move"]
+    game.water2Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "water2"
+        image: assets.water2
+        require: ["move"]
+    game.water3Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "water3"
+        image: assets.water3
+        require: ["move"]
+    game.waterdrops1Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "waterdrops1"
+        image: assets.waterdrops1
+        require: ["move"]
+    game.waterdrops2Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "waterdrops2"
+        image: assets.waterdrops2
+        require: ["move"]
+    game.waterdrops3Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "waterdrops3"
+        image: assets.waterdrops3
+        require: ["move"]
+    game.waterdrops4Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "waterdrops4"
+        image: assets.waterdrops4
+        require: ["move"]
+    game.waterdrops5Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "waterdrops5"
+        image: assets.waterdrops5
+        require: ["move"]
+    game.waterdrops6Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "waterdrops6"
+        image: assets.waterdrops6
+        require: ["move"]
+    game.waterdrops7Factory = new Rogue.Factory
+      entity: Rogue.Entity
+      options:
+        name: "waterdrops7"
+        image: assets.waterdrops7
+        require: ["move"]
+
     game.tree1Factory = new Rogue.Factory
       entity: Rogue.Entity
       options:
@@ -155,15 +209,11 @@ state =
     sc.nextMove()
 
     TANK = sc.getFullTank()
-    game.player.tank = TANK
+    sessionStorage.tank = TANK
 
-    if game.player.tank == 100
+    if sessionStorage.tank== 100
       #console.log "full"
       game.doneButton.x = game.player.x+250
-
-    getTank: ->
-        console.log "return tank"
-        return TANK
 
     @viewport.update(dt)
 

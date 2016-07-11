@@ -20,10 +20,10 @@ class SidescrollerControl
   nextMove: ->
     @checkForStateChange()
     @addAcceleration()
-    @movePlayer()
     @spawnBackground()
     LEVEL_TIME++
     #console.log LEVEL_TIME
+    @movePlayer()
 
   checkForStateChange: ->
     if @game.input.pressed("escape")
@@ -34,6 +34,8 @@ class SidescrollerControl
   addAcceleration: ->
 
   movePlayer: ->
+    @viewport.remove(@game.player)
+    player = @game.player
     xSpeed = X_SPEED
     ySpeed = 0
     @game.player.acc[1] += GRAVITY if @game.player.acc[1] <=1.0
@@ -68,24 +70,27 @@ class SidescrollerControl
     if @game.input.pressed("down")
       @game.player.acc[1] += LIFT + (TANK_COEF*TANK)
 
-    @game.player.move(xSpeed, ySpeed)
+    @viewport.add [player]
+    player.move(xSpeed, ySpeed)
 
   spawnBackground: ->
-    # each background entity traverses the view in 30 steps over 0.5s, 2s, or 4s
-    # the constant on the end gets the right number of pixels for each of the 30 steps.
-
-    if @game.loop.currentTick % 2 == 0
-      water = @spawnWater()
-      water.moveTo(@game.player.rect().x + 500, 400 + Math.random() * 20)
-      @viewport.add [water]
-    if @game.loop.currentTick % 3 == 0
-      tree = @spawnTree()
-      tree.moveTo(@game.player.rect().x + 500, Math.random() * 300)
-      @viewport.add [tree]
     if @game.loop.currentTick % 17 == 0
       rock = @spawnRock()
       rock.moveTo(@game.player.rect().x + 500, Math.random() * 200)
       @viewport.add [rock]
+    if @game.loop.currentTick % 3 == 0
+      tree = @spawnTree()
+      tree.moveTo(@game.player.rect().x + 500, 150 + Math.random() * 200)
+      @viewport.add [tree]
+    if @game.loop.currentTick % 2 == 0
+      water = @spawnWater()
+      water.moveTo(@game.player.rect().x + 600, 400 + Math.random() * 20)
+      @viewport.add [water]
+    if @game.player.y >= 350
+      drops = @spawnDrops()
+      drops.moveTo(@game.player.rect().x + 10 + Math.random() * 20, @game.player.rect().y + 28 + Math.random() * 20)
+      drops.move(-5, 5)
+      @viewport.add [drops]
 
   spawnTree: ->
     return tree = switch Math.floor Math.random() * 16
@@ -108,7 +113,20 @@ class SidescrollerControl
       else @game.tree1Factory.deploy()
 
   spawnWater: ->
-    return water = @game.waterFactory.deploy()
+    return water = switch Math.floor Math.random() * 3
+      when 0 then @game.water1Factory.deploy()
+      when 1 then @game.water2Factory.deploy()
+      when 2 then @game.water3Factory.deploy()
+
+  spawnDrops: ->
+    return drops = switch Math.floor Math.random() * 7
+      when 0 then @game.waterdrops1Factory.deploy()
+      when 1 then @game.waterdrops2Factory.deploy()
+      when 2 then @game.waterdrops3Factory.deploy()
+      when 3 then @game.waterdrops4Factory.deploy()
+      when 4 then @game.waterdrops5Factory.deploy()
+      when 5 then @game.waterdrops6Factory.deploy()
+      when 6 then @game.waterdrops7Factory.deploy()
 
   spawnRock: ->
     return rock = @game.rockFactory.deploy()
